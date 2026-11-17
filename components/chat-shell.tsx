@@ -24,6 +24,7 @@ const welcome: LocalMessage = {
 export function ChatShell() {
   const [user, setUser] = useState<LocalUser | null>(null);
   const [sessionReady, setSessionReady] = useState(false);
+  const [currentDate, setCurrentDate] = useState('');
   const [conversations, setConversations] = useState<LocalConversation[]>([]);
   const [activeId, setActiveId] = useState<string>();
   const [messages, setMessages] = useState<LocalMessage[]>([welcome]);
@@ -39,6 +40,7 @@ export function ChatShell() {
       const currentUser = getLocalUser();
       setUser(currentUser);
       setConversations(currentUser ? listLocalConversations(currentUser.userId) : []);
+      setCurrentDate(formatCurrentDate(new Date()));
       setSessionReady(true);
     }, 0);
     return () => window.clearTimeout(timer);
@@ -107,6 +109,7 @@ export function ChatShell() {
           <div className="brand-mark"><Sparkles aria-hidden="true" /></div><span>Диалог</span>
           <Button variant="ghost" size="icon" className="sidebar-close" onClick={() => setSidebarOpen(false)} aria-label="Закрыть меню"><X /></Button>
         </div>
+        <p className="sidebar-date" aria-label="Текущая дата">{currentDate}</p>
         <Button className="new-chat" variant="outline" onClick={newChat}><Plus /> Новый чат</Button>
         <label className="search-button"><Search /><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Поиск по чатам" aria-label="Поиск по чатам" /></label>
         <nav className="thread-list" aria-label="История чатов">
@@ -164,4 +167,13 @@ export function ChatShell() {
 
 function formatTime(timestamp: number) {
   return new Intl.DateTimeFormat('ru-RU', { hour: '2-digit', minute: '2-digit' }).format(new Date(timestamp));
+}
+
+const RUSSIAN_MONTHS = [
+  'январь', 'февраль', 'март', 'апрель', 'май', 'июнь',
+  'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь',
+];
+
+function formatCurrentDate(date: Date) {
+  return `${date.getFullYear()} ${RUSSIAN_MONTHS[date.getMonth()]} ${date.getDate()}`;
 }
