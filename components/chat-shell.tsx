@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { ArrowUp, Bot, ChevronDown, LoaderCircle, LogIn, Menu, MessageSquare, Plus, Search, Sparkles, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
+import { formatCurrentDate } from '@/lib/date-format.mjs';
 import {
   getLocalUser,
   listLocalConversations,
@@ -167,13 +168,4 @@ export function ChatShell() {
 
 function formatTime(timestamp: number) {
   return new Intl.DateTimeFormat('ru-RU', { hour: '2-digit', minute: '2-digit' }).format(new Date(timestamp));
-}
-
-const RUSSIAN_MONTHS = [
-  'январь', 'февраль', 'март', 'апрель', 'май', 'июнь',
-  'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь',
-];
-
-function formatCurrentDate(date: Date) {
-  return `${date.getFullYear()} ${RUSSIAN_MONTHS[date.getMonth()]} ${date.getDate()}`;
 }
