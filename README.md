@@ -1,5 +1,7 @@
 # Диалог — простой AI-чат для Vercel
 
+[![CI](https://github.com/Kiselb/llm_chat_simple/actions/workflows/ci.yml/badge.svg)](https://github.com/Kiselb/llm_chat_simple/actions/workflows/ci.yml)
+
 Тестовое приложение на Next.js: регистрация и вход по почте, AI-чат и сохранение истории в локальном хранилище браузера.
 
 ## Как хранится информация
